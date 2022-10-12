@@ -28,6 +28,9 @@
     <None Include="Tracker.ino">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="CheckButtons.ino">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="__vm\.DFWS.vsarduino.h">

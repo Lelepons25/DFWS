@@ -105,6 +105,7 @@
     <DebuggerFlavor>VisualMicroDebugger</DebuggerFlavor>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="CheckButtons.ino" />
     <None Include="DFWS.ino">
       <FileType>CppCode</FileType>
     </None>

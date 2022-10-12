@@ -89,6 +89,7 @@ typedef void *__builtin_va_list;
 #define pgm_read_ptr(address_short)   short()
 
 #include "DFWS.ino"
+#include "CheckButtons.ino"
 #include "Fruits.ino"
 #include "HomeScreen.ino"
 #include "Input.ino"
