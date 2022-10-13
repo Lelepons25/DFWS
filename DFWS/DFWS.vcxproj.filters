@@ -13,16 +13,13 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Database">
+      <UniqueIdentifier>{b50d0bb4-b9d3-411e-885c-5d02390fbcb6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DFWS.ino" />
     <None Include="HomeScreen.ino">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="Fruits.ino">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="Input.ino">
       <Filter>Source Files</Filter>
     </None>
     <None Include="Tracker.ino">

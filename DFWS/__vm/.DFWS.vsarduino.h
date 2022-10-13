@@ -90,9 +90,7 @@ typedef void *__builtin_va_list;
 
 #include "DFWS.ino"
 #include "CheckButtons.ino"
-#include "Fruits.ino"
 #include "HomeScreen.ino"
-#include "Input.ino"
 #include "Tracker.ino"
 #endif
 #endif

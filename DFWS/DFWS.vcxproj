@@ -110,9 +110,7 @@
       <FileType>CppCode</FileType>
     </None>
     <None Include="Tracker.ino" />
-    <None Include="Fruits.ino" />
     <None Include="HomeScreen.ino" />
-    <None Include="Input.ino" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="__vm\.DFWS.vsarduino.h" />

@@ -118,12 +118,12 @@ TouchScreen ts = TouchScreen(XP, YP, XM, YM, 300);
 // Button Details Fruit Category
 #define FRUIT_X 60 //Left border
 #define FRUIT_Y 120 //Top
-#define FRUIT_W 105
+#define FRUIT_W 110
 #define FRUIT_H 25 //lower
 #define FRUIT_I 10
-#define FRUIT_SPACING_X 15
+#define FRUIT_SPACING_X 10
 #define FRUIT_SPACING_Y 8
-#define FRUIT_TEXTSIZE 1.6
+#define FRUIT_TEXTSIZE 1
 
 //NextButton
 #define FRUIT_X_next 120
@@ -169,6 +169,7 @@ Adafruit_GFX_Button BackButton[1], NextButton[1], CancelButton[1];
 Adafruit_GFX_Button inputButton[1];
 Adafruit_GFX_Button tareButton[1];
 Adafruit_GFX_Button trackButton[1];
+Adafruit_GFX_Button FruitButton[1], VegButton[1], GrainsButton[1], ProteinButton[1], DairyButton[1];
 
 //Category Buttons
 Adafruit_GFX_Button category[5];
@@ -176,10 +177,21 @@ char categorylabels[5][24] = { "Fruits","Vegetables","Grains", "Protein", "Dairy
 uint16_t categorycolors[5] = { ILI9341_DARKGREY, ILI9341_RED, ILI9341_esti2, ILI9341_esti, ILI9341_PINK};
 
 //Fruit Category Buttons
-Adafruit_GFX_Button fruit[12];
+Adafruit_GFX_Button fruit[10];
 char fruitlabels[10][24] = { "Apple","Avocado","Banana", "Durian", "Grape", "Guava", "Jackfruit", "Lemon","Lime","Mango" };
-uint16_t fruitcolors = ILI9341_esti2;
+uint16_t colors = ILI9341_esti2;
 
+Adafruit_GFX_Button veg[10];
+char veglabels[10][100] = {"Apat-apat Fern", "Bamboo Shoot", "Banana Heart", "Bottle Gourd", "Cabbage", "Carrot", "Cauliflower", "Cucumber", "Eggplant", "Garlic Leaves"};
+
+Adafruit_GFX_Button grains[10];
+char grainslabels[10][100] = {"Bread", "Cashew", "Coconut Meat", "Mung Bean", "Pasta", "Peanut", "Peanut Butter", "Pili", "Rice", "Watermelon Seed"};
+
+Adafruit_GFX_Button protein[10];
+char proteinlabels[10][100] = {"Beef Lean Meat", "Beef Liver", "Beef Sirloin", "Beef Spleen", "Carabeef Lean Meat", "Carabeef Spleen", "Chicken Breast", "Chicken Feet", "Chicken Leg", "Chicken Wing"};
+
+Adafruit_GFX_Button dairy[10];
+char dairylabels[10][100] = {"Cheese Filled", "Chicken Spread", "Cream", "Buttermilk", "Carabao Milk", "Cow Milk", "Egg", "Egg Duck", "Goat Milk", "Yoghurt"};
 
 
 void setup() {
@@ -217,7 +229,7 @@ void loop() {
         p.y = (tft.height() - map(p.y, TS_MINY, TS_MAXY, tft.height(), 0));
     }
 
-    int x=0, y=0, z=0;
+    int x = 0, y = 0, z = 0;
 
     /*switch (current == 0) {
 
@@ -278,14 +290,13 @@ void loop() {
             DrawTrack();
             currentPage = '4';
         }
-
         else {
             inputButton[0].press(false);
             tareButton[0].press(false);
             trackButton[0].press(false);
 
             for (uint8_t b = 0; b < 5; b++) {
-                if (category[b].contains(p.x,p.y)) {
+                if (category[b].contains(p.x, p.y)) {
                     //Serial.print("Pressing: "); Serial.println(b);
                     category[b].press(true); // tell the button it is pressed
                     //Serial.println("p.x:");
@@ -324,248 +335,12 @@ void loop() {
                         category[b].press(false); // tell the button it is NOT pressed
                     }
                 }
-
-                /*for (uint8_t b = 0; b < 4; -b++) {
-                    if (buttons[b].contains(p.x, p.y)) {
-                        //Serial.print("Pressing: "); Serial.println(b);
-                        buttons[b].press(true); // tell the button it is pressed
-                    }
-                    else {
-                        buttons[b].press(false); // tell the button it is NOT pressed
-                    }
-                }
-
-                for (uint8_t b = 0; b < 4; b++) {
-                    if (buttons[b].justReleased()) {
-                        // Serial.print("Released: "); Serial.println(b);
-                        buttons[b].drawButton(); // draw normal
-                    }
-
-                    if (buttons[b].justPressed()) {
-                        buttons[b].drawButton(true); // draw invert!
-
-                        if (b == 0) {
-                            currentPage = '1';
-                            //textfield[textfield_i] = ' ';
-                            tft.setRotation(0);
-                            InputScreen();
-
-                        }
-
-                        if (b == 2) {
-                            currentPage = '3';
-                            tft.setRotation(0);
-                            Category();
-                        }
-
-                        //if (b == 3) {
-                        //    currentPage = '4';
-                        //    tft.setRotation(0);
-                        //    TrackerScreen();
-                        //    Tracker(x, y, z);
-                        //}
-                    }
-                }
-        }*/
-
-
-
             }
-
-
-            //Input Screen
-
-
-            //By page
-            /*/if (currentPage == '3') { //Food Category
-
-
-             // go thru all the buttons, checking if they were pressed
-                for (uint8_t b = 0; b < 6; b++) {
-                    if (category[b].contains(p.x, p.y)) {
-                        category[b].press(true); // tell the button it is pressed
-                    }
-                    else {
-                        category[b].press(false); // tell the button it is NOT pressed
-                    }
-                }
-                //Check which category
-                for (uint8_t b = 0; b < 6; b++) {
-                    if (category[b].justReleased()) {
-                        //category[b].drawButton(); // draw normal
-                    }
-
-                    if (category[b].justPressed()) {
-                       category[b].drawButton(true); // draw invert!
-
-                       if (b == 0) {
-                           categoryPage = '0';
-
-                           //Function that will display the fruits
-                       }
-                       /*if (b >= 0 && b <= 4) {
-                            //void fillscreen();
-                            //Create button for database
-                            if (b == 0) { // Fruit
-
-                                DrawFruits(); // Draw
-                                //Read button
-                                for (uint8_t count = 0; count < 12; count++) // Number of
-                                {
-                                    if (fruit[count].contains(p.x, p.y)) {
-                                        fruit[count].press(true);
-                                        // Serial.println(count);
-                                         // Serial.println(p.x);
-                                    }
-                                    else {
-                                        fruit[count].press(false);
-                                    }
-                                }
-
-                                for (uint8_t count = 0; count < 12; count++) {
-
-                                    if (fruit[count].justReleased()) {
-                                        fruit[count].drawButton();
-
-                                    }
-
-                                    else if (fruit[count].justPressed()) {
-                                        fruit[count].drawButton(true);
-                                        //Serial.println(b);
-
-                                        if (count == 10) {// Back
-                                            currentPage = '0';
-                                            Serial.println("korik");
-                                            void fillscreen();
-                                            HomeScreen();
-                                        }
-                                        else {
-                                            Serial.println("Sayop");
-                                        }
-                                    }
-                                }
-                            }
-                            else {
-                                Serial.println("Dli Fruits");
-                            }
-                        }
-            if (b == 5) {
-                currentPage = '0';
-                void fillscreen();
-                Serial.println("korik5");
-                HomeScreen();
-            }
-
-            if (categoryPage == '0')
-            {
-                void fillscreen();
-                Serial.println("Fruits");
-                DrawFruits();
-                FoodCategory(p);
-            }
-
-
-
-                    }
-                }
-
-                }*/
-
-                /*if (currentPage == '4') {
-
-                    Serial.println("Inside 4");
-                    if (BackButton[1].contains(p.x, p.y)) {
-                        BackButton[1].press(true); // tell the button it is pressed
-                    }
-                    else {
-                        BackButton[1].press(false); // tell the button it is NOT pressed
-                    }
-                    //Serial.println("Page 4");
-                    if (BackButton[1].justReleased()) {
-                        BackButton[1].drawButton(); // draw normal
-                    }
-
-                    if (BackButton[1].justPressed()) {
-                        BackButton[1].drawButton(true);
-                        //if (BackButton[1].isPressed()){
-                        currentPage = '0';
-                        void fillscreen();
-                        HomeScreen();
-
-                    }
-                }*/
-                /*if (currentPage == '1') {
-                       Serial.println("Inside 1");
-
-                       // go thru all the buttons, checking if they were pressed
-                       for (uint8_t b = 0; b < 12; b++) {
-                           if (i_buttons[b].contains(p.x, p.y)) {
-                               i_buttons[b].press(true); // tell the button it is pressed
-                           }
-                           else {
-                               i_buttons[b].press(false); // tell the button it is NOT pressed
-                           }
-                       }
-                       // now we can ask the buttons if their state has changed
-                       for (uint8_t b = 0; b < 12; b++) {
-                           if (i_buttons[b].justReleased()) {
-                               i_buttons[b].drawButton(); // draw normal
-                           }
-
-                           if (i_buttons[b].justPressed()) {
-                               i_buttons[b].drawButton(true); // draw invert!
-
-                               // if a numberpad button, append the relevant # to the textfield
-                               if (b >= 0 && b != 9 && b != 11) {
-                                   if (textfield_i < TEXT_LEN) {
-                                       textfield[textfield_i] = i_buttonlabels[b][0];
-                                       textfield_i++;
-                                       textfield[textfield_i] = 0; // zero terminate
-                                   }
-                               }
-
-                               // clr button
-                               if (b == 11) {
-                                   textfield[textfield_i] = 0;
-                                   if (textfield > 0) {
-                                       textfield_i--;
-                                       textfield[textfield_i] = ' ';
-                                   }
-                               }
-
-                               // update the current text field
-                               Serial.println(textfield);
-                               tft.setCursor(TEXT_X + 2, TEXT_Y + 10);
-                               tft.setTextColor(TEXT_TCOLOR, ILI9341_DARKGREY);
-                               tft.setTextSize(TEXT_TSIZE);
-                               tft.print(textfield);
-
-                               //Back Button
-                               if (b == 9) {
-                                   currentPage = '0';
-                                   void fillscreen();
-                                   HomeScreen();
-                               }
-
-                               //delay(100); // UI debouncing
-                           }
-                       }
-
-
-                       if (SaveButton[1].justReleased()) {
-                           SaveButton[1].drawButton(); // draw normal
-                       }
-
-                       if (SaveButton[1].justPressed()) {
-                           SaveButton[1].drawButton(true);
-                           Serial.println("SAVE BUTTON PRESSED");
-                           targetGoal((int)textfield);
-                       }
-                   }*/
-
         }
+
+        //input
+
     }
-    //input
     if (currentPage == '2') {
 
         Serial.println("INSIDE!");
@@ -652,9 +427,9 @@ void loop() {
             }
 
         }
-        }
+    }
 
-    
+
     if (currentPage == '3') {
         DrawTare();
     }
@@ -683,7 +458,7 @@ void loop() {
     }
     //Fruits
     if (currentPage == '5') {
-        
+
         Serial.println("Fruits");
 
         if (p.x >= 200 && p.x <= 275 && p.y >= 20 && p.y <= 40) {
@@ -694,7 +469,7 @@ void loop() {
             SaveButton[0].press(true);
             Serial.println("save button");
         }
-        if (p.x >= 40 && p.x <=100 && p.y>=295 && p.y<=325) {
+        if (p.x >= 40 && p.x <= 100 && p.y >= 295 && p.y <= 325) {
             currentPage = '0';
             void fillscreen();
             HomeScreen();
@@ -777,7 +552,7 @@ void loop() {
     }
     //Dairy
     if (currentPage == '9') {
-       
+
         if (p.x >= 200 && p.x <= 275 && p.y >= 20 && p.y <= 40) {
             CancelButton[0].press(true);
             Serial.println("cancel button");
@@ -799,6 +574,7 @@ void loop() {
     }
 
 }
+
 
 
 

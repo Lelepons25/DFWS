@@ -4,6 +4,7 @@
     tft.fillScreen(ILI9341_BLACK);
 
     tft.drawRect(TEXT_X, TEXT_Y, TEXT_W, TEXT_H, ILI9341_WHITE);
+   
     for (uint8_t row = 0; row < 5; row++) {
         for (uint8_t col = 0; col < 1; col++) {
             category[col + row].initButton(&tft, CATEG_X + col * (CATEG_W + CATEG_SPACING_X),
@@ -32,6 +33,31 @@
         "TRACK", SIDE_TEXTSIZE);
     trackButton[0].drawButton();
 
+    /*FruitButton[0].initButton(&tft, 120, 120, 220, 30, ILI9341_WHITE, ILI9341_LIGHTGREY,
+        ILI9341_WHITE,
+        "Fruits", CATEG_TEXTSIZE);
+    FruitButton[0].drawButton();
+
+    VegButton[0].initButton(&tft, 120, 155, 220, 30, ILI9341_WHITE, ILI9341_RED,
+        ILI9341_WHITE,
+        "Vegetables", CATEG_TEXTSIZE);
+    VegButton[0].drawButton();
+
+    GrainsButton[0].initButton(&tft, 120, 190, 220, 30, ILI9341_WHITE, ILI9341_esti,
+        ILI9341_WHITE,
+        "Grains", CATEG_TEXTSIZE);
+    GrainsButton[0].drawButton();
+
+    ProteinButton[0].initButton(&tft, 120, 225, 220, 30, ILI9341_WHITE, ILI9341_CYAN,
+        ILI9341_WHITE,
+        "Proteins", CATEG_TEXTSIZE);
+    ProteinButton[0].drawButton();
+
+    DairyButton[0].initButton(&tft, 120, 260, 220, 30, ILI9341_WHITE, ILI9341_MAGENTA,
+        ILI9341_WHITE,
+        "Dairy", CATEG_TEXTSIZE);
+    DairyButton[0].drawButton();*/
+
 }
 
 void DrawFruits() {
@@ -50,7 +76,7 @@ void DrawFruits() {
         for (uint8_t col = 0; col < 2; col++) {
             fruit[col + row * 2].initButton(&tft, FRUIT_X + col * (FRUIT_W + FRUIT_SPACING_X),
                 FRUIT_Y + row * (FRUIT_H + FRUIT_SPACING_Y), // x, y, w, h, outline, fill, text
-                FRUIT_W, FRUIT_H, ILI9341_WHITE, fruitcolors, ILI9341_WHITE,
+                FRUIT_W, FRUIT_H, ILI9341_WHITE, colors, ILI9341_WHITE,
                 fruitlabels[col + row * 2], FRUIT_TEXTSIZE);
             fruit[col + row * 2].drawButton();
         }
@@ -99,8 +125,8 @@ void DrawVeg() {
         for (uint8_t col = 0; col < 2; col++) {
             fruit[col + row * 2].initButton(&tft, FRUIT_X + col * (FRUIT_W + FRUIT_SPACING_X),
                 FRUIT_Y + row * (FRUIT_H + FRUIT_SPACING_Y), // x, y, w, h, outline, fill, text
-                FRUIT_W, FRUIT_H, ILI9341_WHITE, fruitcolors, ILI9341_WHITE,
-                fruitlabels[col + row * 2], FRUIT_TEXTSIZE);
+                FRUIT_W, FRUIT_H, ILI9341_WHITE, colors, ILI9341_WHITE,
+                veglabels[col + row * 2], FRUIT_TEXTSIZE);
             fruit[col + row * 2].drawButton();
         }
     }
@@ -147,8 +173,8 @@ void DrawGrains() {
         for (uint8_t col = 0; col < 2; col++) {
             fruit[col + row * 2].initButton(&tft, FRUIT_X + col * (FRUIT_W + FRUIT_SPACING_X),
                 FRUIT_Y + row * (FRUIT_H + FRUIT_SPACING_Y), // x, y, w, h, outline, fill, text
-                FRUIT_W, FRUIT_H, ILI9341_WHITE, fruitcolors, ILI9341_WHITE,
-                fruitlabels[col + row * 2], FRUIT_TEXTSIZE);
+                FRUIT_W, FRUIT_H, ILI9341_WHITE, colors, ILI9341_WHITE,
+                grainslabels[col + row * 2], FRUIT_TEXTSIZE);
             fruit[col + row * 2].drawButton();
         }
     }
@@ -195,8 +221,8 @@ void DrawProtein() {
         for (uint8_t col = 0; col < 2; col++) {
             fruit[col + row * 2].initButton(&tft, FRUIT_X + col * (FRUIT_W + FRUIT_SPACING_X),
                 FRUIT_Y + row * (FRUIT_H + FRUIT_SPACING_Y), // x, y, w, h, outline, fill, text
-                FRUIT_W, FRUIT_H, ILI9341_WHITE, fruitcolors, ILI9341_WHITE,
-                fruitlabels[col + row * 2], FRUIT_TEXTSIZE);
+                FRUIT_W, FRUIT_H, ILI9341_WHITE, colors, ILI9341_WHITE,
+                proteinlabels[col + row * 2], FRUIT_TEXTSIZE);
             fruit[col + row * 2].drawButton();
         }
     }
@@ -243,8 +269,8 @@ void DrawDairy() {
         for (uint8_t col = 0; col < 2; col++) {
             fruit[col + row * 2].initButton(&tft, FRUIT_X + col * (FRUIT_W + FRUIT_SPACING_X),
                 FRUIT_Y + row * (FRUIT_H + FRUIT_SPACING_Y), // x, y, w, h, outline, fill, text
-                FRUIT_W, FRUIT_H, ILI9341_WHITE, fruitcolors, ILI9341_WHITE,
-                fruitlabels[col + row * 2], FRUIT_TEXTSIZE);
+                FRUIT_W, FRUIT_H, ILI9341_WHITE, colors, ILI9341_WHITE,
+                dairylabels[col + row * 2], FRUIT_TEXTSIZE);
             fruit[col + row * 2].drawButton();
         }
     }
@@ -383,7 +409,7 @@ void displayTargetGoal(int goal) {
     tft.println(goal);
 
     delay(4000);
-    InputScreen();
+    //InputScreen();
 }
 
 
