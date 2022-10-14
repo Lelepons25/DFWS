@@ -60,6 +60,29 @@
 
 }
 
+void DrawButtons() {
+
+    BackButton[1].initButton(&tft, 40, 295, // x, y, w, h, outline, fill, text
+        60, 30, ILI9341_ORANGE, ILI9341_ORANGE, ILI9341_BLACK,
+        "Back", 1.5);
+    BackButton[1].drawButton();
+
+    NextButton[1].initButton(&tft, 200, 295, // x, y, w, h, outline, fill, text
+        60, 30, ILI9341_RED, ILI9341_RED, ILI9341_BLACK,
+        "Next", 1.5);
+    NextButton[1].drawButton();
+
+    CancelButton[0].initButton(&tft, 200, 20, 75, 20, ILI9341_WHITE, ILI9341_BLUE,
+        ILI9341_WHITE,
+        "CANCEL", SIDE_TEXTSIZE);
+    CancelButton[0].drawButton();
+
+    SaveButton[0].initButton(&tft, 200, 60, 75, 40, ILI9341_WHITE, ILI9341_BLUE,
+        ILI9341_WHITE,
+        "SAVE", SIDE_TEXTSIZE);
+    SaveButton[0].drawButton();
+}
+
 void DrawFruits() {
     tft.fillScreen(ILI9341_DARKGREY);
 
@@ -76,30 +99,7 @@ void DrawFruits() {
         }
     }
 
-    BackButton[1].initButton(&tft, 40, 295, // x, y, w, h, outline, fill, text
-        60, 30, ILI9341_ORANGE, ILI9341_ORANGE, ILI9341_BLACK,
-        "Back", 1.5);
-    BackButton[1].drawButton();
-
-    /*NextButton[1].initButton(&tft, 120, 290, // x, y, w, h, outline, fill, text
-        60, 30, ILI9341_YELLOW, ILI9341_YELLOW, ILI9341_BLACK,
-        "Next", 1.5);
-    NextButton[1].drawButton();*/
-
-    NextButton[1].initButton(&tft, 200, 295, // x, y, w, h, outline, fill, text
-        60, 30, ILI9341_RED, ILI9341_RED, ILI9341_BLACK,
-        "Next", 1.5);
-    NextButton[1].drawButton();
-
-    CancelButton[0].initButton(&tft, 200, 20, 75, 20, ILI9341_WHITE, ILI9341_BLUE,
-        ILI9341_WHITE,
-        "CANCEL", SIDE_TEXTSIZE);
-    CancelButton[0].drawButton();
-
-    SaveButton[0].initButton(&tft, 200, 50, 75, 40, ILI9341_WHITE, ILI9341_BLUE,
-        ILI9341_WHITE,
-        "SAVE", SIDE_TEXTSIZE);
-    SaveButton[0].drawButton();
+    DrawButtons();
 }
 
 void DrawVeg() {
@@ -107,47 +107,18 @@ void DrawVeg() {
 
     tft.drawRect(TEXT_X, TEXT_Y, TEXT_W, 70, ILI9341_WHITE);
 
-
-    tft.setCursor(10, 90);
-    tft.setTextColor(ILI9341_WHITE);
-    tft.setTextSize(2);
-    tft.print("Vegetables");
-
     //Create Buttons
     for (uint8_t row = 0; row < 5; row++) {
         for (uint8_t col = 0; col < 1; col++) {
-            fruit[col + row * 2].initButton(&tft, FRUIT_X + col * (FRUIT_W + FRUIT_SPACING_X),
+            veg[col + row].initButton(&tft, FRUIT_X + col * (FRUIT_W + FRUIT_SPACING_X),
                 FRUIT_Y + row * (FRUIT_H + FRUIT_SPACING_Y), // x, y, w, h, outline, fill, text
                 FRUIT_W, FRUIT_H, ILI9341_WHITE, colors, ILI9341_WHITE,
-                veglabels[col + row * 2], FRUIT_TEXTSIZE);
-            fruit[col + row * 2].drawButton();
+                veglabels[col + row], FRUIT_TEXTSIZE);
+            veg[col + row].drawButton();
         }
     }
 
-    BackButton[1].initButton(&tft, 40, 295, // x, y, w, h, outline, fill, text
-        60, 30, ILI9341_ORANGE, ILI9341_ORANGE, ILI9341_BLACK,
-        "Back", 1.5);
-    BackButton[1].drawButton();
-
-    /*NextButton[1].initButton(&tft, 120, 290, // x, y, w, h, outline, fill, text
-        60, 30, ILI9341_YELLOW, ILI9341_YELLOW, ILI9341_BLACK,
-        "Next", 1.5);
-    NextButton[1].drawButton();*/
-
-    NextButton[1].initButton(&tft, 200, 295, // x, y, w, h, outline, fill, text
-        60, 30, ILI9341_RED, ILI9341_RED, ILI9341_BLACK,
-        "Next", 1.5);
-    NextButton[1].drawButton();
-
-    CancelButton[0].initButton(&tft, 200, 20, 75, 20, ILI9341_WHITE, ILI9341_BLUE,
-        ILI9341_WHITE,
-        "CANCEL", SIDE_TEXTSIZE);
-    CancelButton[0].drawButton();
-
-    SaveButton[0].initButton(&tft, 200, 50, 75, 20, ILI9341_WHITE, ILI9341_BLUE,
-        ILI9341_WHITE,
-        "SAVE", SIDE_TEXTSIZE);
-    SaveButton[0].drawButton();
+    DrawButtons();
 }
 
 void DrawGrains() {
@@ -155,95 +126,38 @@ void DrawGrains() {
 
     tft.drawRect(TEXT_X, TEXT_Y, TEXT_W, 70, ILI9341_WHITE);
 
-
-    tft.setCursor(10, 90);
-    tft.setTextColor(ILI9341_WHITE);
-    tft.setTextSize(2);
-    tft.print("Grains");
-
     //Create Buttons
     for (uint8_t row = 0; row < 5; row++) {
         for (uint8_t col = 0; col < 1; col++) {
-            fruit[col + row * 2].initButton(&tft, FRUIT_X + col * (FRUIT_W + FRUIT_SPACING_X),
+            grains[col + row].initButton(&tft, FRUIT_X + col * (FRUIT_W + FRUIT_SPACING_X),
                 FRUIT_Y + row * (FRUIT_H + FRUIT_SPACING_Y), // x, y, w, h, outline, fill, text
                 FRUIT_W, FRUIT_H, ILI9341_WHITE, colors, ILI9341_WHITE,
-                grainslabels[col + row * 2], FRUIT_TEXTSIZE);
-            fruit[col + row * 2].drawButton();
+                grainslabels[col + row], FRUIT_TEXTSIZE);
+            grains[col + row].drawButton();
         }
     }
 
-    BackButton[1].initButton(&tft, 40, 295, // x, y, w, h, outline, fill, text
-        60, 30, ILI9341_ORANGE, ILI9341_ORANGE, ILI9341_BLACK,
-        "Back", 1.5);
-    BackButton[1].drawButton();
-
-    /*NextButton[1].initButton(&tft, 120, 290, // x, y, w, h, outline, fill, text
-        60, 30, ILI9341_YELLOW, ILI9341_YELLOW, ILI9341_BLACK,
-        "Next", 1.5);
-    NextButton[1].drawButton();*/
-
-    NextButton[1].initButton(&tft, 200, 295, // x, y, w, h, outline, fill, text
-        60, 30, ILI9341_RED, ILI9341_RED, ILI9341_BLACK,
-        "Next", 1.5);
-    NextButton[1].drawButton();
-
-    CancelButton[0].initButton(&tft, 200, 20, 75, 20, ILI9341_WHITE, ILI9341_BLUE,
-        ILI9341_WHITE,
-        "CANCEL", SIDE_TEXTSIZE);
-    CancelButton[0].drawButton();
-
-    SaveButton[0].initButton(&tft, 200, 50, 75, 20, ILI9341_WHITE, ILI9341_BLUE,
-        ILI9341_WHITE,
-        "SAVE", SIDE_TEXTSIZE);
-    SaveButton[0].drawButton();
+    DrawButtons();
 }
 
 void DrawProtein() {
+
     tft.fillScreen(ILI9341_DARKGREY);
 
     tft.drawRect(TEXT_X, TEXT_Y, TEXT_W, 70, ILI9341_WHITE);
 
-
-    tft.setCursor(10, 90);
-    tft.setTextColor(ILI9341_WHITE);
-    tft.setTextSize(2);
-    tft.print("Protein");
-
     //Create Buttons
     for (uint8_t row = 0; row < 5; row++) {
         for (uint8_t col = 0; col < 1; col++) {
-            fruit[col + row * 2].initButton(&tft, FRUIT_X + col * (FRUIT_W + FRUIT_SPACING_X),
+            protein[col + row].initButton(&tft, FRUIT_X + col * (FRUIT_W + FRUIT_SPACING_X),
                 FRUIT_Y + row * (FRUIT_H + FRUIT_SPACING_Y), // x, y, w, h, outline, fill, text
                 FRUIT_W, FRUIT_H, ILI9341_WHITE, colors, ILI9341_WHITE,
-                proteinlabels[col + row * 2], FRUIT_TEXTSIZE);
-            fruit[col + row * 2].drawButton();
+                proteinlabels[col + row], FRUIT_TEXTSIZE);
+            protein[col + row].drawButton();
         }
     }
 
-    BackButton[1].initButton(&tft, 40, 295, // x, y, w, h, outline, fill, text
-        60, 30, ILI9341_ORANGE, ILI9341_ORANGE, ILI9341_BLACK,
-        "Back", 1.5);
-    BackButton[1].drawButton();
-
-    /*NextButton[1].initButton(&tft, 120, 290, // x, y, w, h, outline, fill, text
-        60, 30, ILI9341_YELLOW, ILI9341_YELLOW, ILI9341_BLACK,
-        "Next", 1.5);
-    NextButton[1].drawButton();*/
-
-    NextButton[1].initButton(&tft, 200, 295, // x, y, w, h, outline, fill, text
-        60, 30, ILI9341_RED, ILI9341_RED, ILI9341_BLACK,
-        "Next", 1.5);
-    NextButton[1].drawButton();
-
-    CancelButton[0].initButton(&tft, 200, 20, 75, 20, ILI9341_WHITE, ILI9341_BLUE,
-        ILI9341_WHITE,
-        "CANCEL", SIDE_TEXTSIZE);
-    CancelButton[0].drawButton();
-
-    SaveButton[0].initButton(&tft, 200, 50, 75, 20, ILI9341_WHITE, ILI9341_BLUE,
-        ILI9341_WHITE,
-        "SAVE", SIDE_TEXTSIZE);
-    SaveButton[0].drawButton();
+    DrawButtons();
 }
 
 void DrawDairy() {
@@ -251,47 +165,18 @@ void DrawDairy() {
 
     tft.drawRect(TEXT_X, TEXT_Y, TEXT_W, 70, ILI9341_WHITE);
 
-
-    tft.setCursor(10, 90);
-    tft.setTextColor(ILI9341_WHITE);
-    tft.setTextSize(2);
-    tft.print("Dairy");
-
     //Create Buttons
     for (uint8_t row = 0; row < 5; row++) {
         for (uint8_t col = 0; col < 1; col++) {
-            fruit[col + row * 2].initButton(&tft, FRUIT_X + col * (FRUIT_W + FRUIT_SPACING_X),
+            dairy[col + row].initButton(&tft, FRUIT_X + col * (FRUIT_W + FRUIT_SPACING_X),
                 FRUIT_Y + row * (FRUIT_H + FRUIT_SPACING_Y), // x, y, w, h, outline, fill, text
                 FRUIT_W, FRUIT_H, ILI9341_WHITE, colors, ILI9341_WHITE,
-                dairylabels[col + row * 2], FRUIT_TEXTSIZE);
-            fruit[col + row * 2].drawButton();
+                dairylabels[col + row], FRUIT_TEXTSIZE);
+            dairy[col + row].drawButton();
         }
     }
 
-    BackButton[1].initButton(&tft, 40, 295, // x, y, w, h, outline, fill, text
-        60, 30, ILI9341_ORANGE, ILI9341_ORANGE, ILI9341_BLACK,
-        "Back", 1.5);
-    BackButton[1].drawButton();
-
-    /*NextButton[1].initButton(&tft, 120, 290, // x, y, w, h, outline, fill, text
-        60, 30, ILI9341_YELLOW, ILI9341_YELLOW, ILI9341_BLACK,
-        "Next", 1.5);
-    NextButton[1].drawButton();*/
-
-    NextButton[1].initButton(&tft, 200, 295, // x, y, w, h, outline, fill, text
-        60, 30, ILI9341_RED, ILI9341_RED, ILI9341_BLACK,
-        "Next", 1.5);
-    NextButton[1].drawButton();
-
-    CancelButton[0].initButton(&tft, 200, 20, 75, 20, ILI9341_WHITE, ILI9341_BLUE,
-        ILI9341_WHITE,
-        "CANCEL", SIDE_TEXTSIZE);
-    CancelButton[0].drawButton();
-
-    SaveButton[0].initButton(&tft, 200, 50, 75, 20, ILI9341_WHITE, ILI9341_BLUE,
-        ILI9341_WHITE,
-        "SAVE", SIDE_TEXTSIZE);
-    SaveButton[0].drawButton();
+    DrawButtons();
 }
 
 void DrawInput() {
@@ -390,18 +275,37 @@ void displayErrorGoal() {
     tft.println("Calorie intake \n minimum and maximum is \n between 1,200 and 2,000 \n calories per day.");
 }
 
-void displayCalorie(int b) {
+void displayCalorie(int b, int categ) {
 
-        int calorie = fruitcalories[b];
-        tft.setCursor(TEXT_X + 10, TEXT_Y + 10);
-        tft.setTextColor(ILI9341_BLACK);
-        tft.setTextSize(2);
-        tft.println("Calories:");
-        tft.setCursor((TEXT_X + 15), (TEXT_Y + 30));
-        tft.setTextSize(3);
-        tft.print(calorie);
+    int calorie = 0;
 
-        //delay(3000);
+    //Check which category
+
+    if (categ == 1) {
+        calorie = fruitcalories[b];
+    }
+    else if (categ == 2) {
+        calorie = vegcalories[b];
+    }
+    else if (categ == 3) {
+        calorie = grainscalories[b];
+    }
+    else if (categ == 4) {
+        calorie = proteincalories[b];
+    }
+    else if (categ == 5){
+        calorie = dairycalories[b];
+    }
+
+    tft.setCursor(TEXT_X + 10, TEXT_Y + 10);
+    tft.setTextColor(ILI9341_BLACK);
+    tft.setTextSize(2);
+    tft.println("Calories:");
+    tft.setCursor((TEXT_X + 15), (TEXT_Y + 30));
+    tft.setTextSize(3);
+    tft.print(calorie);
+
+    //delay(3000);
 
 }
 

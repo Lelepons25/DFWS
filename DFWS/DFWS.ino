@@ -401,6 +401,7 @@ void loop() {
 
         void fillscreen();
 
+        int categ = 1;
 
         if (p.x >= 200 && p.x <= 275 && p.y >= 20 && p.y <= 40) {
             clearInput();
@@ -418,35 +419,35 @@ void loop() {
                 fruit[0].press(true);
                 Serial.println("b = 1");
                 count = 0;
-                displayCalorie(0);
+                displayCalorie(0, categ);
             }
             if (p.x >= 120 && p.x <= 340 && p.y >= 148 && p.y <= 178) {
                 fruit[1].press(true);
                 Serial.println("b = 2");
                 count = 1;
-                displayCalorie(1);
+                displayCalorie(1, categ);
 
             }
             if (p.x >= 120 && p.x <= 340 && p.y >= 186 && p.y <= 216) {
                 fruit[2].press(true);
                 Serial.println("b = 3");
                 count = 2;
-                displayCalorie(2);
+                displayCalorie(2, categ);
             }
             if (p.x >= 120 && p.x <= 340 && p.y >= 224 && p.y <= 254) {
                 fruit[3].press(true);
                 Serial.println("b = 4");
                 count = 3;
-                displayCalorie(3);
+                displayCalorie(3, categ);
             }
             if (p.x >= 120 && p.x <= 340 && p.y >= 262 && p.y <= 292) {
                 fruit[4].press(true);
                 Serial.println("b = 5");
                 count = 4;
-                displayCalorie(4);
+                displayCalorie(4, categ);
             }
             else {
-                if (p.x >= 200 && p.x <= 275 && p.y >= 50 && p.y <= 90) { // Save Button
+                if (p.x >= 200 && p.x <= 275 && p.y >= 60 && p.y <= 90) { // Save Button
                     SaveButton[0].press(true);
                     Serial.println("Save");
                     clearInput();
@@ -466,15 +467,10 @@ void loop() {
     }
     //Veg
     if (currentPage == '6') {
-        Serial.println("Veg");
 
+        int categ = 2;
         if (p.x >= 200 && p.x <= 275 && p.y >= 20 && p.y <= 40) {
-            CancelButton[0].press(true);
-            Serial.println("cancel button");
-        }
-        if (p.x >= 200 && p.x <= 275 && p.y >= 50 && p.y <= 70) {
-            SaveButton[0].press(true);
-            Serial.println("save button");
+            clearInput();
         }
         if (p.x >= 40 && p.x <= 100 && p.y >= 295 && p.y <= 325) {
             currentPage = '0';
@@ -482,22 +478,65 @@ void loop() {
             HomeScreen();
         }
         else {
-            CancelButton[0].press(false);
-            SaveButton[0].press(false);
             BackButton[0].press(false);
+            CancelButton[0].press(false);
+
+            if (p.x >= 120 && p.x <= 340 && p.y >= 110 && p.y <= 140) {
+                veg[0].press(true);
+                Serial.println("b = 1");
+                count = 0;
+                displayCalorie(0, categ);
+            }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 148 && p.y <= 178) {
+                veg[1].press(true);
+                Serial.println("b = 2");
+                count = 1;
+                displayCalorie(1, categ);
+
+            }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 186 && p.y <= 216) {
+                veg[2].press(true);
+                Serial.println("b = 3");
+                count = 2;
+                displayCalorie(2, categ);
+            }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 224 && p.y <= 254) {
+                veg[3].press(true);
+                Serial.println("b = 4");
+                count = 3;
+                displayCalorie(3, categ);
+            }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 262 && p.y <= 292) {
+                veg[4].press(true);
+                Serial.println("b = 5");
+                count = 4;
+                displayCalorie(4, categ);
+            }
+            else {
+                if (p.x >= 200 && p.x <= 275 && p.y >= 60 && p.y <= 90) { // Save Button
+                    SaveButton[0].press(true);
+                    Serial.println("Save");
+                    clearInput();
+                    calorie = vegcalories[count]; // Calorie = contains the saved calorie
+                    Serial.println("Calorie:");
+                    Serial.println(calorie);
+
+                }
+                else {
+                    SaveButton[0].press(false);
+                }
+
+            }
         }
     }
     //Grains
     if (currentPage == '7') {
-        Serial.println("Grains");
+        void fillscreen();
+
+        int categ = 3;
 
         if (p.x >= 200 && p.x <= 275 && p.y >= 20 && p.y <= 40) {
-            CancelButton[0].press(true);
-            Serial.println("cancel button");
-        }
-        if (p.x >= 200 && p.x <= 275 && p.y >= 50 && p.y <= 70) {
-            SaveButton[0].press(true);
-            Serial.println("save button");
+            clearInput();
         }
         if (p.x >= 40 && p.x <= 100 && p.y >= 295 && p.y <= 325) {
             currentPage = '0';
@@ -505,21 +544,65 @@ void loop() {
             HomeScreen();
         }
         else {
-            CancelButton[0].press(false);
-            SaveButton[0].press(false);
             BackButton[0].press(false);
+            CancelButton[0].press(false);
+
+            if (p.x >= 120 && p.x <= 340 && p.y >= 110 && p.y <= 140) {
+                grains[0].press(true);
+                Serial.println("b = 1");
+                count = 0;
+                displayCalorie(0, categ);
+            }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 148 && p.y <= 178) {
+                grains[1].press(true);
+                Serial.println("b = 2");
+                count = 1;
+                displayCalorie(1, categ);
+
+            }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 186 && p.y <= 216) {
+                grains[2].press(true);
+                Serial.println("b = 3");
+                count = 2;
+                displayCalorie(2, categ);
+            }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 224 && p.y <= 254) {
+                grains[3].press(true);
+                Serial.println("b = 4");
+                count = 3;
+                displayCalorie(3, categ);
+            }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 262 && p.y <= 292) {
+                grains[4].press(true);
+                Serial.println("b = 5");
+                count = 4;
+                displayCalorie(4, categ);
+            }
+            else {
+                if (p.x >= 200 && p.x <= 275 && p.y >= 60 && p.y <= 90) { // Save Button
+                    SaveButton[0].press(true);
+                    Serial.println("Save");
+                    clearInput();
+                    calorie = grainscalories[count]; // Calorie = contains the saved calorie
+                    Serial.println("Calorie:");
+                    Serial.println(calorie);
+
+                }
+                else {
+                    SaveButton[0].press(false);
+                }
+
+            }
         }
     }
     //Protein
     if (currentPage == '8') {
-        Serial.println("Protein");
+        void fillscreen();
+
+        int categ = 4;
+
         if (p.x >= 200 && p.x <= 275 && p.y >= 20 && p.y <= 40) {
-            CancelButton[0].press(true);
-            Serial.println("cancel button");
-        }
-        if (p.x >= 200 && p.x <= 275 && p.y >= 50 && p.y <= 70) {
-            SaveButton[0].press(true);
-            Serial.println("save button");
+            clearInput();
         }
         if (p.x >= 40 && p.x <= 100 && p.y >= 295 && p.y <= 325) {
             currentPage = '0';
@@ -527,21 +610,65 @@ void loop() {
             HomeScreen();
         }
         else {
-            CancelButton[0].press(false);
-            SaveButton[0].press(false);
             BackButton[0].press(false);
+            CancelButton[0].press(false);
+
+            if (p.x >= 120 && p.x <= 340 && p.y >= 110 && p.y <= 140) {
+                protein[0].press(true);
+                Serial.println("b = 1");
+                count = 0;
+                displayCalorie(0, categ);
+            }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 148 && p.y <= 178) {
+                protein[1].press(true);
+                Serial.println("b = 2");
+                count = 1;
+                displayCalorie(1, categ);
+
+            }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 186 && p.y <= 216) {
+                protein[2].press(true);
+                Serial.println("b = 3");
+                count = 2;
+                displayCalorie(2, categ);
+            }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 224 && p.y <= 254) {
+                protein[3].press(true);
+                Serial.println("b = 4");
+                count = 3;
+                displayCalorie(3, categ);
+            }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 262 && p.y <= 292) {
+                protein[4].press(true);
+                Serial.println("b = 5");
+                count = 4;
+                displayCalorie(4, categ);
+            }
+            else {
+                if (p.x >= 200 && p.x <= 275 && p.y >= 60 && p.y <= 90) { // Save Button
+                    SaveButton[0].press(true);
+                    Serial.println("Save");
+                    clearInput();
+                    calorie = proteincalories[count]; // Calorie = contains the saved calorie
+                    Serial.println("Calorie:");
+                    Serial.println(calorie);
+
+                }
+                else {
+                    SaveButton[0].press(false);
+                }
+
+            }
         }
     }
     //Dairy
     if (currentPage == '9') {
+        void fillscreen();
+
+        int categ = 5;
 
         if (p.x >= 200 && p.x <= 275 && p.y >= 20 && p.y <= 40) {
-            CancelButton[0].press(true);
-            Serial.println("cancel button");
-        }
-        if (p.x >= 200 && p.x <= 275 && p.y >= 50 && p.y <= 70) {
-            SaveButton[0].press(true);
-            Serial.println("save button");
+            clearInput();
         }
         if (p.x >= 40 && p.x <= 100 && p.y >= 295 && p.y <= 325) {
             currentPage = '0';
@@ -549,9 +676,55 @@ void loop() {
             HomeScreen();
         }
         else {
-            CancelButton[0].press(false);
-            SaveButton[0].press(false);
             BackButton[0].press(false);
+            CancelButton[0].press(false);
+
+            if (p.x >= 120 && p.x <= 340 && p.y >= 110 && p.y <= 140) {
+                dairy[0].press(true);
+                Serial.println("b = 1");
+                count = 0;
+                displayCalorie(0, categ);
+            }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 148 && p.y <= 178) {
+                dairy[1].press(true);
+                Serial.println("b = 2");
+                count = 1;
+                displayCalorie(1, categ);
+
+            }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 186 && p.y <= 216) {
+                dairy[2].press(true);
+                Serial.println("b = 3");
+                count = 2;
+                displayCalorie(2, categ);
+            }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 224 && p.y <= 254) {
+                dairy[3].press(true);
+                Serial.println("b = 4");
+                count = 3;
+                displayCalorie(3, categ);
+            }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 262 && p.y <= 292) {
+                dairy[4].press(true);
+                Serial.println("b = 5");
+                count = 4;
+                displayCalorie(4, categ);
+            }
+            else {
+                if (p.x >= 200 && p.x <= 275 && p.y >= 60 && p.y <= 90) { // Save Button
+                    SaveButton[0].press(true);
+                    Serial.println("Save");
+                    clearInput();
+                    calorie = dairycalories[count]; // Calorie = contains the saved calorie
+                    Serial.println("Calorie:");
+                    Serial.println(calorie);
+
+                }
+                else {
+                    SaveButton[0].press(false);
+                }
+
+            }
         }
     }
 
