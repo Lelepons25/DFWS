@@ -32,14 +32,7 @@
 #define ILI9341_PINK 0xF81F
 #define ILI9341_esti 0x794379
 #define ILI9341_esti2 0x86923B
-/******************* UI details */
-#define BUTTON_X 120
-#define BUTTON_Y 140
-#define BUTTON_W 220
-#define BUTTON_H 40
-#define BUTTON_SPACING_X 10
-#define BUTTON_SPACING_Y 10
-#define BUTTON_TEXTSIZE 2
+
 
 // text box where numbers go
 #define TEXT_X 10
@@ -116,14 +109,13 @@ TouchScreen ts = TouchScreen(XP, YP, XM, YM, 300);
 
 
 // Button Details Fruit Category
-#define FRUIT_X 60 //Left border
-#define FRUIT_Y 120 //Top
-#define FRUIT_W 110
-#define FRUIT_H 25 //lower
-#define FRUIT_I 10
+#define FRUIT_X 120 //Left border
+#define FRUIT_Y 110 //Top
+#define FRUIT_W 220 //110
+#define FRUIT_H 30 //25 //lower
 #define FRUIT_SPACING_X 10
 #define FRUIT_SPACING_Y 8
-#define FRUIT_TEXTSIZE 1
+#define FRUIT_TEXTSIZE 2
 
 //NextButton
 #define FRUIT_X_next 120
@@ -145,14 +137,14 @@ TouchScreen ts = TouchScreen(XP, YP, XM, YM, 300);
 #define In_X 140
 #define In_Y 120
 
-//REMAINING CALORIES
 #define rCal_X 10
 #define rCal_Y 250
 
 
-bool buttonEnabled = true;
 char currentPage, categoryPage, unit;
-int newcurrent=0, current=0;
+int newcurrent=0, current=0, count=0;
+int calarray[20]={};
+
 
 
 
@@ -163,12 +155,7 @@ uint16_t i_buttoncolors[12] = { ILI9341_BLUE, ILI9341_BLUE, ILI9341_BLUE,
 ILI9341_BLUE, ILI9341_BLUE, ILI9341_BLUE, ILI9341_BLUE, ILI9341_BLUE,
 ILI9341_BLUE, ILI9341_LIGHTGREY, ILI9341_BLUE, ILI9341_RED };
 
-Adafruit_GFX_Button SaveButton[1];
-
-Adafruit_GFX_Button BackButton[1], NextButton[1], CancelButton[1];
-Adafruit_GFX_Button inputButton[1];
-Adafruit_GFX_Button tareButton[1];
-Adafruit_GFX_Button trackButton[1];
+Adafruit_GFX_Button SaveButton[1], BackButton[1], NextButton[1], CancelButton[1], inputButton[1], tareButton[1], trackButton[1];
 Adafruit_GFX_Button FruitButton[1], VegButton[1], GrainsButton[1], ProteinButton[1], DairyButton[1];
 
 //Category Buttons
@@ -179,20 +166,24 @@ uint16_t categorycolors[5] = { ILI9341_DARKGREY, ILI9341_RED, ILI9341_esti2, ILI
 //Fruit Category Buttons
 Adafruit_GFX_Button fruit[10];
 char fruitlabels[10][24] = { "Apple","Avocado","Banana", "Durian", "Grape", "Guava", "Jackfruit", "Lemon","Lime","Mango" };
+int fruitcalories[10] = {67, 100, 126, 44, 163, 83, 70, 111, 64, 42};
 uint16_t colors = ILI9341_esti2;
 
 Adafruit_GFX_Button veg[10];
-char veglabels[10][100] = {"Apat-apat Fern", "Bamboo Shoot", "Banana Heart", "Bottle Gourd", "Cabbage", "Carrot", "Cauliflower", "Cucumber", "Eggplant", "Garlic Leaves"};
+char veglabels[10][50] = {"Apat Fern", "Bamboo Shoot", "Banana Heart", "Bottle Gourd", "Cabbage", "Carrot", "Cauliflower", "Cucumber", "Eggplant", "Garlic Leaves"};
+int vegcalories[10] = {131, 28, 39, 20, 31, 42, 32, 16, 29, 50};
 
 Adafruit_GFX_Button grains[10];
-char grainslabels[10][100] = {"Bread", "Cashew", "Coconut Meat", "Mung Bean", "Pasta", "Peanut", "Peanut Butter", "Pili", "Rice", "Watermelon Seed"};
+char grainslabels[10][50] = {"Bread", "Cashew", "Coconut Meat", "Mung Bean", "Pasta", "Peanut", "Peanut Butter", "Pili", "Rice", "Watermelon Seed"};
+int grainscalories[10] = { 329, 603, 102, 348, 361, 617, 616, 699, 356, 562 };
 
 Adafruit_GFX_Button protein[10];
-char proteinlabels[10][100] = {"Beef Lean Meat", "Beef Liver", "Beef Sirloin", "Beef Spleen", "Carabeef Lean Meat", "Carabeef Spleen", "Chicken Breast", "Chicken Feet", "Chicken Leg", "Chicken Wing"};
+char proteinlabels[10][50] = {"Beef Lean", "Beef Liver", "Beef Sirloin", "Beef Spleen", "Carabeef Lean Meat", "Carabeef Spleen", "Chicken Breast", "Chicken Feet", "Chicken Leg", "Chicken Wing"};
+int proteincalories[10] = { 134, 144, 132, 95, 90, 98, 131, 187, 204, 194 };
 
 Adafruit_GFX_Button dairy[10];
-char dairylabels[10][100] = {"Cheese Filled", "Chicken Spread", "Cream", "Buttermilk", "Carabao Milk", "Cow Milk", "Egg", "Egg Duck", "Goat Milk", "Yoghurt"};
-
+char dairylabels[10][50] = {"Cheese", "Chic Spread", "Cream", "Buttermilk", "Cara Milk", "Cow Milk", "Egg", "Egg Duck", "Goat Milk", "Yoghurt"};
+int dairycalories[10] = {297, 210, 241, 43, 124, 65, 139, 177, 73, 83};
 
 void setup() {
 
@@ -297,18 +288,12 @@ void loop() {
 
             for (uint8_t b = 0; b < 5; b++) {
                 if (category[b].contains(p.x, p.y)) {
-                    //Serial.print("Pressing: "); Serial.println(b);
                     category[b].press(true); // tell the button it is pressed
-                    //Serial.println("p.x:");
-                    //Serial.println(p.x);
-                    //Serial.println("p.y");
-                    //Serial.println(p.y);
 
                     if (b == 0) {
                         currentPage = '5';
                         tft.setRotation(0);
                         DrawFruits();
-                        Serial.println("Fruits");
                     }
                     if (b == 1) {
                         currentPage = '6';
@@ -342,8 +327,6 @@ void loop() {
 
     }
     if (currentPage == '2') {
-
-        Serial.println("INSIDE!");
         for (uint8_t b = 0; b < 12; b++) {
             if (i_buttons[b].contains(p.x, p.y)) {
                 i_buttons[b].press(true); // tell the button it is pressed
@@ -428,8 +411,6 @@ void loop() {
 
         }
     }
-
-
     if (currentPage == '3') {
         DrawTare();
     }
@@ -458,16 +439,16 @@ void loop() {
     }
     //Fruits
     if (currentPage == '5') {
+        
+        void fillscreen();
 
-        Serial.println("Fruits");
-
-        if (p.x >= 200 && p.x <= 275 && p.y >= 20 && p.y <= 40) {
-            CancelButton[0].press(true);
-            Serial.println("cancel button");
-        }
         if (p.x >= 200 && p.x <= 275 && p.y >= 50 && p.y <= 70) {
             SaveButton[0].press(true);
             Serial.println("save button");
+        }
+        if (p.x >= 200 && p.x <= 275 && p.y >= 20 && p.y <= 40) {
+            CancelButton[0].press(true);
+            Serial.println("cancel button");
         }
         if (p.x >= 40 && p.x <= 100 && p.y >= 295 && p.y <= 325) {
             currentPage = '0';
@@ -475,10 +456,37 @@ void loop() {
             HomeScreen();
         }
         else {
-            CancelButton[0].press(false);
-            SaveButton[0].press(false);
             BackButton[0].press(false);
         }
+
+        if (p.x >= 120 && p.x <= 340 && p.y >= 110 && p.y <= 140) {
+            fruit[0].press(true);
+            Serial.println("1");
+            //Display
+            displayCalorie(0);
+            //Prompt user if cancel/ Save
+        }
+        if (p.x >= 120 && p.x <= 340 && p.y >= 148 && p.y <= 178) {
+            fruit[1].press(true);
+            Serial.println("2");
+            displayCalorie(1);
+        }
+        if (p.x >= 120 && p.x <= 340 && p.y >= 186 && p.y <= 216) {
+            fruit[2].press(true);
+            Serial.println("3");
+            displayCalorie(2);
+        }
+        if (p.x >= 120 && p.x <= 340 && p.y >= 224 && p.y <= 254) {
+            fruit[3].press(true);
+            Serial.println("4");
+            displayCalorie(3);
+        }
+        if (p.x >= 120 && p.x <= 340 && p.y >= 262 && p.y <= 292) {
+            fruit[4].press(true);
+            Serial.println("5");
+            displayCalorie(4);
+        }
+
 
 
     }
@@ -574,9 +582,6 @@ void loop() {
     }
 
 }
-
-
-
 
 void DisplayWeight(int weight) {
     tft.fillRect(TEXT_X, TEXT_Y, TEXT_W, TEXT_H, ILI9341_DARKGREY);

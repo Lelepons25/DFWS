@@ -65,20 +65,14 @@ void DrawFruits() {
 
     tft.drawRect(TEXT_X, TEXT_Y, TEXT_W, 70, ILI9341_WHITE);
 
-
-    tft.setCursor(10,90);
-    tft.setTextColor(ILI9341_WHITE);
-    tft.setTextSize(2);
-    tft.print("Fruit");
-
     //Create Buttons
     for (uint8_t row = 0; row < 5; row++) {
-        for (uint8_t col = 0; col < 2; col++) {
-            fruit[col + row * 2].initButton(&tft, FRUIT_X + col * (FRUIT_W + FRUIT_SPACING_X),
+        for (uint8_t col = 0; col < 1; col++) {
+            fruit[col + row].initButton(&tft, FRUIT_X + col * (FRUIT_W + FRUIT_SPACING_X),
                 FRUIT_Y + row * (FRUIT_H + FRUIT_SPACING_Y), // x, y, w, h, outline, fill, text
                 FRUIT_W, FRUIT_H, ILI9341_WHITE, colors, ILI9341_WHITE,
-                fruitlabels[col + row * 2], FRUIT_TEXTSIZE);
-            fruit[col + row * 2].drawButton();
+                fruitlabels[col + row], FRUIT_TEXTSIZE);
+            fruit[col + row].drawButton();
         }
     }
 
@@ -122,7 +116,7 @@ void DrawVeg() {
 
     //Create Buttons
     for (uint8_t row = 0; row < 5; row++) {
-        for (uint8_t col = 0; col < 2; col++) {
+        for (uint8_t col = 0; col < 1; col++) {
             fruit[col + row * 2].initButton(&tft, FRUIT_X + col * (FRUIT_W + FRUIT_SPACING_X),
                 FRUIT_Y + row * (FRUIT_H + FRUIT_SPACING_Y), // x, y, w, h, outline, fill, text
                 FRUIT_W, FRUIT_H, ILI9341_WHITE, colors, ILI9341_WHITE,
@@ -170,7 +164,7 @@ void DrawGrains() {
 
     //Create Buttons
     for (uint8_t row = 0; row < 5; row++) {
-        for (uint8_t col = 0; col < 2; col++) {
+        for (uint8_t col = 0; col < 1; col++) {
             fruit[col + row * 2].initButton(&tft, FRUIT_X + col * (FRUIT_W + FRUIT_SPACING_X),
                 FRUIT_Y + row * (FRUIT_H + FRUIT_SPACING_Y), // x, y, w, h, outline, fill, text
                 FRUIT_W, FRUIT_H, ILI9341_WHITE, colors, ILI9341_WHITE,
@@ -218,7 +212,7 @@ void DrawProtein() {
 
     //Create Buttons
     for (uint8_t row = 0; row < 5; row++) {
-        for (uint8_t col = 0; col < 2; col++) {
+        for (uint8_t col = 0; col < 1; col++) {
             fruit[col + row * 2].initButton(&tft, FRUIT_X + col * (FRUIT_W + FRUIT_SPACING_X),
                 FRUIT_Y + row * (FRUIT_H + FRUIT_SPACING_Y), // x, y, w, h, outline, fill, text
                 FRUIT_W, FRUIT_H, ILI9341_WHITE, colors, ILI9341_WHITE,
@@ -266,7 +260,7 @@ void DrawDairy() {
 
     //Create Buttons
     for (uint8_t row = 0; row < 5; row++) {
-        for (uint8_t col = 0; col < 2; col++) {
+        for (uint8_t col = 0; col < 1; col++) {
             fruit[col + row * 2].initButton(&tft, FRUIT_X + col * (FRUIT_W + FRUIT_SPACING_X),
                 FRUIT_Y + row * (FRUIT_H + FRUIT_SPACING_Y), // x, y, w, h, outline, fill, text
                 FRUIT_W, FRUIT_H, ILI9341_WHITE, colors, ILI9341_WHITE,
@@ -395,6 +389,19 @@ void displayErrorGoal() {
     tft.setTextSize(2);
     tft.println("Invalid Input");
     tft.println("Calorie intake \n minimum and maximum is \n between 1,200 and 2,000 \n calories per day.");
+}
+
+void displayCalorie(int b) {
+
+        int calorie = fruitcalories[b];
+        tft.setCursor(TEXT_X + 10, TEXT_Y + 10);
+        tft.setTextColor(ILI9341_BLACK);
+        tft.setTextSize(2);
+        tft.println("Calories:");
+        tft.setCursor((TEXT_X + 15), (TEXT_Y + 30));
+        tft.setTextSize(3);
+        tft.print(calorie);
+
 }
 
 void displayTargetGoal(int goal) {
