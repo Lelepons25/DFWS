@@ -403,37 +403,12 @@ void displayCalorie(int b) {
 
         //delay(3000);
 
-        //clearInput();
-
-        //Check if the user want to save
-
 }
 
 void clearInput() {
-    Serial.println("Cancel");
     tft.fillRect(TEXT_X, TEXT_Y, TEXT_W, 70, ILI9341_DARKGREY);
     tft.drawRect(TEXT_X, TEXT_Y, TEXT_W, 70, ILI9341_WHITE);
 }
-
-void saveCalorie(int b, int check) {
-    
-    Serial.println("Count: ");
-    Serial.println(count);
-
-    if (check == 1) { // Check == 1 Save
-        calarray[count] = fruitcalories[b];
-        Serial.println("array:");
-        Serial.println(calarray[0]);
-        count++;
-    }
-
-    //Serial.println("Count2: ");
-    //Serial.println(count);
-    //Serial.println("array:");
-    //Serial.println(calarray[0]);
-}
-
-
 
 void displayTargetGoal(int goal) {
     //tft.fillScreen(ILI9341_WHITE);
@@ -449,58 +424,3 @@ void displayTargetGoal(int goal) {
     delay(4000);
     //InputScreen();
 }
-
-
-
-
-
-//Transfer to other screen ret
-/*char CheckHomeScreen(TSPoint p) {
-
-
-    for (uint8_t b = 0; b < 4; b++) {
-        if (buttons[b].contains(p.x, p.y)) {
-            //Serial.print("Pressing: "); Serial.println(b);
-            buttons[b].press(true); // tell the button it is pressed
-            if (b == 0) {
-                currentPage = '1';
-                tft.setRotation(0);
-                InputScreen();
-                Serial.println("Input");
-            }
-
-            if (b == 2) {
-                currentPage = '3';
-                tft.setRotation(0);
-                Serial.println("Category");
-                Category();
-            }
-
-            if (b == 3) {
-                currentPage = '4';
-                tft.setRotation(0);
-                Tracker();
-                Serial.println("Tracker");
-            }
-            
-        }
-        else {
-            buttons[b].press(false); // tell the button it is NOT pressed
-        }
-    }
-
-
-    /*for (uint8_t b = 0; b < 4; b++) {
-        if (buttons[b].justReleased()) {
-            // Serial.print("Released: "); Serial.println(b);
-            //buttons[b].drawButton(); // draw normal
-        }
-
-        if (buttons[b].justPressed()) {
-            buttons[b].drawButton(true); // draw invert! 
-
-        }
-    }
-
-}*/
-

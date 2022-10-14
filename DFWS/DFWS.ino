@@ -142,8 +142,7 @@ TouchScreen ts = TouchScreen(XP, YP, XM, YM, 300);
 
 
 char currentPage, categoryPage, unit;
-int newcurrent=0, current=0, count=0, check=0;
-int calarray[20]={};
+int newcurrent=0, current=0, count=0, counter=0, check=0, calorie=0, x, y, z;
 
 
 
@@ -201,7 +200,7 @@ void setup() {
 
 }
 
-#define MINPRESSURE 10
+#define MINPRESSURE 50
 #define MAXPRESSURE 1000
 
 
@@ -219,47 +218,6 @@ void loop() {
         p.x = map(p.x, TS_MINX, TS_MAXX, tft.width(), 0);
         p.y = (tft.height() - map(p.y, TS_MINY, TS_MAXY, tft.height(), 0));
     }
-
-    int x = 0, y = 0, z = 0;
-
-    /*switch (current == 0) {
-
-    case 1:
-        for (uint8_t b = 0; b < 4; b++) {
-            if (buttons[b].contains(p.x, p.y)) {
-                //Serial.print("Pressing: "); Serial.println(b);
-                buttons[b].press(true); // tell the button it is pressed
-
-                if (b == 0) {
-                    currentPage = '1';
-                    tft.setRotation(0);
-                    InputScreen();
-                    Serial.println("Input");
-                }
-
-                if (b == 2) {
-                    currentPage = '3';
-                    tft.setRotation(0);
-                    Serial.println("Category");
-                    Category();
-                }
-
-                if (b == 3) {
-                    currentPage = '4';
-                    tft.setRotation(0);
-                    Tracker();
-                    Serial.println("Tracker");
-                }
-
-            }
-            else {
-                buttons[b].press(false); // tell the button it is NOT pressed
-            }
-        }
-
-
-
-    }*/
     if (currentPage == '0') {
 
         //Serial.println("Clear Button");
@@ -440,15 +398,9 @@ void loop() {
     //Fruits
     if (currentPage == '5') {
 
-        int b = 0;
-
 
         void fillscreen();
 
-        if (p.x >= 200 && p.x <= 275 && p.y >= 50 && p.y <= 90) { // Save Button
-            SaveButton[0].press(true);
-            check = 1;
-        }
 
         if (p.x >= 200 && p.x <= 275 && p.y >= 20 && p.y <= 40) {
             clearInput();
@@ -460,46 +412,53 @@ void loop() {
         }
         else {
             BackButton[0].press(false);
+            CancelButton[0].press(false);
 
             if (p.x >= 120 && p.x <= 340 && p.y >= 110 && p.y <= 140) {
                 fruit[0].press(true);
-                Serial.println("Check:");
-                Serial.println(check);
                 Serial.println("b = 1");
-                b = 0;
+                count = 0;
                 displayCalorie(0);
-                //saveCalorie(0, check);
-
-
             }
             if (p.x >= 120 && p.x <= 340 && p.y >= 148 && p.y <= 178) {
                 fruit[1].press(true);
                 Serial.println("b = 2");
-                b = 1;
+                count = 1;
                 displayCalorie(1);
-                // saveCalorie(1, check);
 
             }
             if (p.x >= 120 && p.x <= 340 && p.y >= 186 && p.y <= 216) {
                 fruit[2].press(true);
                 Serial.println("b = 3");
-                b = 2;
+                count = 2;
                 displayCalorie(2);
-                //saveCalorie(2, check);
             }
             if (p.x >= 120 && p.x <= 340 && p.y >= 224 && p.y <= 254) {
                 fruit[3].press(true);
                 Serial.println("b = 4");
-                b = 3;
+                count = 3;
                 displayCalorie(3);
-                //saveCalorie(3, check);
             }
             if (p.x >= 120 && p.x <= 340 && p.y >= 262 && p.y <= 292) {
                 fruit[4].press(true);
                 Serial.println("b = 5");
-                b = 4;
+                count = 4;
                 displayCalorie(4);
-                //saveCalorie(3, check);
+            }
+            else {
+                if (p.x >= 200 && p.x <= 275 && p.y >= 50 && p.y <= 90) { // Save Button
+                    SaveButton[0].press(true);
+                    Serial.println("Save");
+                    clearInput();
+                    calorie = fruitcalories[count]; // Calorie = contains the saved calorie
+                    Serial.println("Calorie:");
+                    Serial.println(calorie);
+
+                }
+                else {
+                    SaveButton[0].press(false);
+                }
+
             }
         }
        
@@ -596,12 +555,10 @@ void loop() {
         }
     }
 
-}
-
-int checkCalorie(int b) {
 
 
 }
+
 void DisplayWeight(int weight) {
     tft.fillRect(TEXT_X, TEXT_Y, TEXT_W, TEXT_H, ILI9341_DARKGREY);
     tft.drawRect(TEXT_X, TEXT_Y, TEXT_W, TEXT_H, ILI9341_DARKGREY); //Display Weight //create a function here
@@ -610,61 +567,3 @@ void DisplayWeight(int weight) {
     tft.setTextSize(6);
     tft.print(weight);
 }
-
-void CheckInput(TSPoint p)
-{
-    Serial.println("INSIDE");
-    // go thru all the buttons, checking if they were pressed
- 
-}
-
-
-//Transfer to other screen ret
-/*char CheckHomeScreen(TSPoint p) {
-
-
-    for (uint8_t b = 0; b < 4; b++) {
-        if (buttons[b].contains(p.x, p.y)) {
-            //Serial.print("Pressing: "); Serial.println(b);
-            buttons[b].press(true); // tell the button it is pressed
-            if (b == 0) {
-                currentPage = '1';
-                tft.setRotation(0);
-                InputScreen();
-                Serial.println("Input");
-            }
-
-            if (b == 2) {
-                currentPage = '3';
-                tft.setRotation(0);
-                Serial.println("Category");
-                Category();
-            }
-
-            if (b == 3) {
-                currentPage = '4';
-                tft.setRotation(0);
-                Tracker();
-                Serial.println("Tracker");
-            }
-            
-        }
-        else {
-            buttons[b].press(false); // tell the button it is NOT pressed
-        }
-    }
-
-
-    /*for (uint8_t b = 0; b < 4; b++) {
-        if (buttons[b].justReleased()) {
-            // Serial.print("Released: "); Serial.println(b);
-            //buttons[b].drawButton(); // draw normal
-        }
-
-        if (buttons[b].justPressed()) {
-            buttons[b].drawButton(true); // draw invert! 
-
-        }
-    }
-
-}*/
