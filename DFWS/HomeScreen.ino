@@ -96,11 +96,10 @@ void DrawFruits() {
         "CANCEL", SIDE_TEXTSIZE);
     CancelButton[0].drawButton();
 
-    SaveButton[0].initButton(&tft, 200, 50, 75, 20, ILI9341_WHITE, ILI9341_BLUE,
+    SaveButton[0].initButton(&tft, 200, 50, 75, 40, ILI9341_WHITE, ILI9341_BLUE,
         ILI9341_WHITE,
         "SAVE", SIDE_TEXTSIZE);
     SaveButton[0].drawButton();
-
 }
 
 void DrawVeg() {
@@ -402,7 +401,39 @@ void displayCalorie(int b) {
         tft.setTextSize(3);
         tft.print(calorie);
 
+        //delay(3000);
+
+        //clearInput();
+
+        //Check if the user want to save
+
 }
+
+void clearInput() {
+    Serial.println("Cancel");
+    tft.fillRect(TEXT_X, TEXT_Y, TEXT_W, 70, ILI9341_DARKGREY);
+    tft.drawRect(TEXT_X, TEXT_Y, TEXT_W, 70, ILI9341_WHITE);
+}
+
+void saveCalorie(int b, int check) {
+    
+    Serial.println("Count: ");
+    Serial.println(count);
+
+    if (check == 1) { // Check == 1 Save
+        calarray[count] = fruitcalories[b];
+        Serial.println("array:");
+        Serial.println(calarray[0]);
+        count++;
+    }
+
+    //Serial.println("Count2: ");
+    //Serial.println(count);
+    //Serial.println("array:");
+    //Serial.println(calarray[0]);
+}
+
+
 
 void displayTargetGoal(int goal) {
     //tft.fillScreen(ILI9341_WHITE);

@@ -142,7 +142,7 @@ TouchScreen ts = TouchScreen(XP, YP, XM, YM, 300);
 
 
 char currentPage, categoryPage, unit;
-int newcurrent=0, current=0, count=0;
+int newcurrent=0, current=0, count=0, check=0;
 int calarray[20]={};
 
 
@@ -201,7 +201,7 @@ void setup() {
 
 }
 
-#define MINPRESSURE 50
+#define MINPRESSURE 10
 #define MAXPRESSURE 1000
 
 
@@ -439,16 +439,19 @@ void loop() {
     }
     //Fruits
     if (currentPage == '5') {
-        
+
+        int b = 0;
+
+
         void fillscreen();
 
-        if (p.x >= 200 && p.x <= 275 && p.y >= 50 && p.y <= 70) {
+        if (p.x >= 200 && p.x <= 275 && p.y >= 50 && p.y <= 90) { // Save Button
             SaveButton[0].press(true);
-            Serial.println("save button");
+            check = 1;
         }
+
         if (p.x >= 200 && p.x <= 275 && p.y >= 20 && p.y <= 40) {
-            CancelButton[0].press(true);
-            Serial.println("cancel button");
+            clearInput();
         }
         if (p.x >= 40 && p.x <= 100 && p.y >= 295 && p.y <= 325) {
             currentPage = '0';
@@ -457,37 +460,49 @@ void loop() {
         }
         else {
             BackButton[0].press(false);
-        }
 
-        if (p.x >= 120 && p.x <= 340 && p.y >= 110 && p.y <= 140) {
-            fruit[0].press(true);
-            Serial.println("1");
-            //Display
-            displayCalorie(0);
-            //Prompt user if cancel/ Save
-        }
-        if (p.x >= 120 && p.x <= 340 && p.y >= 148 && p.y <= 178) {
-            fruit[1].press(true);
-            Serial.println("2");
-            displayCalorie(1);
-        }
-        if (p.x >= 120 && p.x <= 340 && p.y >= 186 && p.y <= 216) {
-            fruit[2].press(true);
-            Serial.println("3");
-            displayCalorie(2);
-        }
-        if (p.x >= 120 && p.x <= 340 && p.y >= 224 && p.y <= 254) {
-            fruit[3].press(true);
-            Serial.println("4");
-            displayCalorie(3);
-        }
-        if (p.x >= 120 && p.x <= 340 && p.y >= 262 && p.y <= 292) {
-            fruit[4].press(true);
-            Serial.println("5");
-            displayCalorie(4);
-        }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 110 && p.y <= 140) {
+                fruit[0].press(true);
+                Serial.println("Check:");
+                Serial.println(check);
+                Serial.println("b = 1");
+                b = 0;
+                displayCalorie(0);
+                //saveCalorie(0, check);
 
 
+            }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 148 && p.y <= 178) {
+                fruit[1].press(true);
+                Serial.println("b = 2");
+                b = 1;
+                displayCalorie(1);
+                // saveCalorie(1, check);
+
+            }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 186 && p.y <= 216) {
+                fruit[2].press(true);
+                Serial.println("b = 3");
+                b = 2;
+                displayCalorie(2);
+                //saveCalorie(2, check);
+            }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 224 && p.y <= 254) {
+                fruit[3].press(true);
+                Serial.println("b = 4");
+                b = 3;
+                displayCalorie(3);
+                //saveCalorie(3, check);
+            }
+            if (p.x >= 120 && p.x <= 340 && p.y >= 262 && p.y <= 292) {
+                fruit[4].press(true);
+                Serial.println("b = 5");
+                b = 4;
+                displayCalorie(4);
+                //saveCalorie(3, check);
+            }
+        }
+       
 
     }
     //Veg
@@ -583,6 +598,10 @@ void loop() {
 
 }
 
+int checkCalorie(int b) {
+
+
+}
 void DisplayWeight(int weight) {
     tft.fillRect(TEXT_X, TEXT_Y, TEXT_W, TEXT_H, ILI9341_DARKGREY);
     tft.drawRect(TEXT_X, TEXT_Y, TEXT_W, TEXT_H, ILI9341_DARKGREY); //Display Weight //create a function here
